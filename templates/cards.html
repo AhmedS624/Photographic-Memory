@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}
+    Cards
+{% endblock %}
+{% block main %} 
+    <div class="card_container">
+      <div class="card_crafter">
+
+        
+        <form action="/cards.html" method="post" class="form">
+          <input type="file" accept="image/*" name="img" id="file" onchange="loadFile(event)" style="display:none;">
+          <label for="file" style="cursor: pointer;" id = "img_label">Select image</label>
+          <img id="output" width="40%" height="50%"/>
+          
+          <lable>Concept</lable>
+          <input type="text" class="concept" name="concept">
+
+          <label>Explanation</label>
+          <textarea rows="5" cols="50" id="explanation" name="explanation" placeholder="Tell the story behind your story" ></textarea>
+          <button id="save_button">Save Card</button>
+          
+          
+        </form>
+      </div>
+    </div>
+{% endblock %}
