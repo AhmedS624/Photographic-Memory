@@ -1,5 +1,5 @@
 from flask import Flask,render_template,request,session
-from forms import register_form,login
+from forms import register_form,login_form
 from Models import Users,Cards,db
 
 app = Flask(__name__)
@@ -7,7 +7,7 @@ app.config['SECRET_KEY'] = 'e93064b6742da8b2dc4c66d6c61f55b5'
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    form = login()
+    form = login_form()
     return render_template('login.html', form = form)
 
 @app.route("/register", methods=["GET", "POST"])

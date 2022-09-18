@@ -53,6 +53,8 @@
 {
     display: grid;
     place-items: center;
-    
-    
+}
+.content
+{
+    margin-top: 60px;
 }
