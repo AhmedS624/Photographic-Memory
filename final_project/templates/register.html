@@ -12,11 +12,25 @@
                 <div class="mb-3">
                     {{ form.username.label(class="form-control-label ") }}
                     {{ form.username(class="form-control mx-auto w-auto") }}
+                    {% if form.username.errors %}
+                        {% for error in form.username.errors %}
+                            <small style="color: red;">
+                                {{error}}
+                            </small>
+                        {% endfor %}
+                    {% endif %}
                 </div>
 
                 <div class="mb-3">
                     {{ form.email.label(class="form-control-label") }}
                     {{ form.email(class="form-control mx-auto w-auto") }}
+                    {% if form.email.errors %}
+                        {% for error in form.email.errors %}
+                            <small style="color: red;">
+                                {{error}}
+                            </small>
+                        {% endfor %}
+                    {% endif %}
                 </div>
 
                 <div class="mb-3">
