@@ -7,7 +7,7 @@ def load_user(user_id):
 
 class Users(db.Model,UserMixin):
     id = db.Column(db.Integer,primary_key = True)
-    username = db.Column(db.String(20), unique = True, nullable = False)
+    username = db.Column(db.String(50), unique = True, nullable = False)
     email = db.Column(db.String(120),unique = True, nullable = False)
     password = db.Column(db.String(60), nullable = False)
     cards = db.relationship('Cards', backref ='author',lazy =True)
@@ -19,7 +19,7 @@ class Cards(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'), nullable = False)
     concept = db.Column(db.String(50), nullable =False)
     explanation = db.Column(db.Text, nullable =False)
-    photo = db.Column(db.String(20), nullable = False, default = 'default.jpg')
+    photo = db.Column(db.Image, nullable = False, default = 'default.jpg')
 
     def __repr__(self):
         return f"Cards('{self.concept}','{self.explanation}', '{self.photo}')"

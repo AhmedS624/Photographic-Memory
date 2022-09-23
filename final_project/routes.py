@@ -1,6 +1,6 @@
-from flask import render_template,request, session, flash, redirect
+from flask import render_template,request, session, flash, redirect,url_for
 from final_project import app,db,bcrypt
-from final_project.forms import register_form,login_form
+from final_project.forms import register_form,login_form,card_form
 from final_project.Models import Users, Cards
 from flask_login import login_user, current_user,logout_user,login_required
 
@@ -27,9 +27,9 @@ def login():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    form = register_form()
     if current_user.is_authenticated:
         return redirect('/')
-    form = register_form()
     if form.validate_on_submit():
         hashed = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user = Users(username = form.username.data,email = form.email.data, password = hashed)
@@ -37,7 +37,9 @@ def register():
         db.session.commit()
         flash('Your account has been created', 'success')
         return redirect('/login')
-    return render_template('register.html', form = form)
+    else:
+        
+        return render_template('register.html', form = form)
 
 
 
@@ -61,15 +63,16 @@ def logout():
 @app.route("/cards" ,methods = ('GET','POST'))
 @login_required
 def cards():
+    form = card_form()
     if request.method == "GET":
-        return render_template("/cards.html")
+        return render_template("/cards.html", form = form)
     else:
-        concept = request.form.get("concept")
-        img = request.files["img"]
-        explanation = request.form.get("explanation")
-        if not concept or img or explanation:
-            return 'somthing is missing',400
-
+        if form.validate_on_submit:
+            card = Cards(user_id = current_user.get_id(),concept = form.concept.data,explanation = form.explanation.data,photo = form.photo.data)
+            db.session.add(card)
+            db.session.commit()
+            flash('Saved', 'success')
+            return render_template("/cards.html", form = form)
         
 
 @app.route("/palaces")

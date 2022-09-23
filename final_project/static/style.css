@@ -9,16 +9,9 @@
     place-items: center;
     height: 90vh;
     width:100vw;
-    
     margin:0;
 }
-.card_crafter
-{
-    width: 60%;
-    max-width: 800px;
 
-
-}
 .form
 {
     display: flex;
@@ -35,6 +28,11 @@
     
     border-radius: 5px;
 }
+.form-control-label{
+    font-weight: bold;
+}
+
+
 #save_button
 {
     font-size: 1.5em;
@@ -49,12 +47,14 @@
     font-weight : bold;
 }
 /*register form */
-.mb-3 ,.border-top 
+.form-group ,.border-top 
 {
     display: grid;
     place-items: center;
 }
 .content
 {
+    display:grid;
+    place-content:center;
     margin-top: 60px;
 }

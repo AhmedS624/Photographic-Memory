@@ -11,49 +11,63 @@
             <fieldset class="mb-3">
                 <div class="mb-3">
                     {{ form.username.label(class="form-control-label ") }}
-                    {{ form.username(class="form-control mx-auto w-auto") }}
                     {% if form.username.errors %}
-                        {% for error in form.username.errors %}
-                            <small style="color: red;">
-                                {{error}}
-                            </small>
-                        {% endfor %}
+                        {{ form.username(class="form-control w-auto is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                    <span>{{error}} </span>
+                                </div>
+                            {% endfor %}
+                    {% else %}       
+                        {{ form.username(class="form-control w-auto") }}
                     {% endif %}
                 </div>
 
                 <div class="mb-3">
                     {{ form.email.label(class="form-control-label") }}
-                    {{ form.email(class="form-control mx-auto w-auto") }}
                     {% if form.email.errors %}
-                        {% for error in form.email.errors %}
-                            <small style="color: red;">
-                                {{error}}
-                            </small>
-                        {% endfor %}
+                        {{ form.email(class="form-control w-auto is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{error}} </span>
+                            </div>
+                            {% endfor %}
+                    {% else %}       
+                        {{ form.email(class="form-control w-auto") }}
                     {% endif %}
                 </div>
-
                 <div class="mb-3">
                     {{ form.password.label(class="form-control-label") }}
-                    {{ form.password(class="form-control mx-auto w-auto") }}
+                    {% if form.password.errors %}
+                    {{ form.password(class="form-control w-auto is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                                <span>{{error}} </span>
+                            </div>
+                        {% endfor %}
+                    {% else %}       
+                        {{ form.password(class="form-control w-auto") }}
+                    {% endif %}
                 </div>
-
+                
                 <div class="mb-3">
                     {{ form.confirm_password.label(class="form-control-label") }}
-                    {{ form.confirm_password(class="form-control mx-auto w-auto") }}
+                    {{ form.confirm_password(class="form-control w-auto") }}
+                    
+                </div>
+                <div class="mb-3">
+                    {{ form.submit(class="btn btn-primary") }}
                 </div>
             </fieldset>
-            <div class="mb-3">
-                {{ form.submit(class="btn btn-primary") }}
-            </div>
         </form>
     </div>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            <a class="ml-2" href="/login">
-            Have an account? Log In.
-            </a>
-        </small>
 
-    </div>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                <a class="ml-2" href="/login">
+                Have an account? Log In.
+                </a>
+            </small>
+        </div>
+
 {% endblock %}

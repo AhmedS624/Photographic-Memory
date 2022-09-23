@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField,PasswordField,SubmitField
+from flask_wtf.file import FileAllowed
+from wtforms import StringField,PasswordField,SubmitField,FileField,TextAreaField,MultipleFileField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from final_project.Models import Users
 
@@ -29,3 +30,19 @@ class login_form(FlaskForm):
 
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
+
+class card_form(FlaskForm):
+    photo = MultipleFileField('Photo',validators=[FileAllowed(['jpg','png'])])
+
+    concept = StringField('Concept',validators=[DataRequired(),Length(min=2, max=50)])
+
+    explanation = TextAreaField('Explanation',validators=[DataRequired()])
+
+    submit = SubmitField('Save')
+
+    def validate_username(self,username):
+        card = Cards.query.filter_by(name=name.data).first()
+        if card:
+            raise ValidationError('This card already exists choose another name')
+   
+
