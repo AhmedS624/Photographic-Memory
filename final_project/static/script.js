@@ -1,3 +1,15 @@
+const accordiion = document.getElementsByClassName('contentBx');
+for (i=0;i<accordiion.length;i++){
+   accordiion[i].addEventListener('click',function(){
+      this.classList.toggle('active')
+   })
+}
+
+
+
+
+
+
 function myFunction() {
    var length = document.getElementById('formFileMultiple').files.length
    for(i=0;i <= length; i++)

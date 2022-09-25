@@ -1,8 +1,13 @@
-from flask import render_template,request, session, flash, redirect,url_for
+from datetime import datetime
+
+from flask import render_template,request, session, flash, redirect,url_for,Response
 from final_project import app,db,bcrypt
 from final_project.forms import register_form,login_form,card_form
-from final_project.Models import Users, Cards
+from final_project.Models import Users, Cards, Img
 from flask_login import login_user, current_user,logout_user,login_required
+from werkzeug.utils import secure_filename
+from sqlalchemy.orm import load_only
+from final_project.functions import getList
 
 
 
@@ -68,12 +73,45 @@ def cards():
         return render_template("/cards.html", form = form)
     else:
         if form.validate_on_submit:
-            card = Cards(user_id = current_user.get_id(),concept = form.concept.data,explanation = form.explanation.data,photo = form.photo.data)
+            img = request.files['photo']
+            if not img:
+                return 'please uploade an img file',400
+            filename = secure_filename(img.filename)
+            mimetype = img.mimetype
+
+            card = Cards(user_id = current_user.get_id(),concept = form.concept.data,explanation = form.explanation.data)
+
             db.session.add(card)
+            db.session.commit()
+
+            card_id = Cards.query.filter_by(concept = form.concept.data).first().id
+            photo = Img(img=img.read(),mimetype = mimetype,name = filename, card_id = card_id,date = datetime.now())
+            
+            db.session.add(photo)
             db.session.commit()
             flash('Saved', 'success')
             return render_template("/cards.html", form = form)
         
+@app.route("/browse-cards")
+@login_required
+def browse():
+    user_id = current_user.get_id()
+    li = db.session.execute(f'SELECT concept FROM cards WHERE cards.user_id = {user_id} ORDER BY cards.id').fetchall()
+    concepts = getList(li)
+    ex = db.session.execute(f'SELECT explanation FROM cards WHERE cards.user_id = {user_id} ORDER BY cards.id').fetchall()
+    explanations = getList(ex)
+
+
+    
+    return render_template("/browse-cards.html",concepts = concepts,explanations = explanations)
+
+@app.route("/<int:id>")
+@login_required
+def get_img(id):
+    img = Img.query.filter_by(id = id).first()
+    if not img:
+        return 'nooooooo', 400
+    return Response (img.img,mimetype = img.mimetype)
 
 @app.route("/palaces")
 @login_required

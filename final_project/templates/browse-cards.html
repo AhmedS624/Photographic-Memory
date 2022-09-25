@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}
+    Browse Cards
+{% endblock %}
+{% block main %} 
+<div class="card-content">
+    <div class="accordion">
+    {% for i in range(concepts|length)   %}
+        <div class="contentBx">
+                <div class="label">{{ concepts[i] }}</div>
+                <div class="text">
+                    {{ im }}
+                    {{ explanations[i] }}
+                </div>
+                
+            </div>
+    {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}

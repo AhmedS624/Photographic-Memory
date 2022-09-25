@@ -19,7 +19,14 @@ class Cards(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'), nullable = False)
     concept = db.Column(db.String(50), nullable =False)
     explanation = db.Column(db.Text, nullable =False)
-    photo = db.Column(db.Image, nullable = False, default = 'default.jpg')
+    photo = db.relationship('Img', backref ='card',lazy =True)
 
     def __repr__(self):
-        return f"Cards('{self.concept}','{self.explanation}', '{self.photo}')"
+        return f"Cards('{self.concept}','{self.explanation}')"
+class Img(db.Model):
+    id = db.Column(db.Integer,primary_key = True)
+    card_id = db.Column(db.Integer,db.ForeignKey('cards.id'), nullable = False)
+    img = db.Column(db.Text, nullable =False)
+    name = db.Column(db.Text, nullable =False)
+    mimetype = db.Column(db.Text, nullable =False)
+    date = db.Column(db.DateTime, nullable = False)
