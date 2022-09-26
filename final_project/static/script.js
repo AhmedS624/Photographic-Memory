@@ -11,10 +11,7 @@ for (i=0;i<accordiion.length;i++){
 
 
 function myFunction() {
-   var length = document.getElementById('formFileMultiple').files.length
-   for(i=0;i <= length; i++)
-   {
-     var file = document.getElementById('formFileMultiple').files[i];
+     var file = document.getElementById('formFileMultiple').files[0];
 
      var reader  = new FileReader();
      // it's onload event and you forgot (parameters)
@@ -32,4 +29,4 @@ function myFunction() {
       const element = document.getElementById('display')
       element.remove();
    }
-  }
+

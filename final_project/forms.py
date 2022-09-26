@@ -32,7 +32,7 @@ class login_form(FlaskForm):
     submit = SubmitField('Login')
 
 class card_form(FlaskForm):
-    photo = MultipleFileField('Photo',validators=[FileAllowed(['jpg','png'])])
+    photo = FileField('Photo',validators=[FileAllowed(['jpg','png'])])
 
     concept = StringField('Concept',validators=[DataRequired(),Length(min=2, max=50)])
 

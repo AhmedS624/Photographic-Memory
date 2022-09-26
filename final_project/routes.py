@@ -1,9 +1,12 @@
 from datetime import datetime
+import secrets
+import os
+
 
 from flask import render_template,request, session, flash, redirect,url_for,Response
 from final_project import app,db,bcrypt
 from final_project.forms import register_form,login_form,card_form
-from final_project.Models import Users, Cards, Img
+from final_project.Models import Users, Cards
 from flask_login import login_user, current_user,logout_user,login_required
 from werkzeug.utils import secure_filename
 from sqlalchemy.orm import load_only
@@ -63,6 +66,13 @@ def logout():
     # Redirect user to login form
     return redirect("/login")
 
+def save_img(form_img):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_img.filename)
+    img_fn = random_hex + f_ext
+    img_path = os.path.join(app.root_path,'static/photos',img_fn)
+    form_img.save(img_path)
+    return img_fn
 
     
 @app.route("/cards" ,methods = ('GET','POST'))
@@ -73,22 +83,13 @@ def cards():
         return render_template("/cards.html", form = form)
     else:
         if form.validate_on_submit:
-            img = request.files['photo']
-            if not img:
-                return 'please uploade an img file',400
-            filename = secure_filename(img.filename)
-            mimetype = img.mimetype
+            img_file = save_img(form.photo.data)
 
-            card = Cards(user_id = current_user.get_id(),concept = form.concept.data,explanation = form.explanation.data)
+            card = Cards(user_id = current_user.get_id(),concept = form.concept.data,explanation = form.explanation.data,img=img_file)
 
             db.session.add(card)
             db.session.commit()
-
-            card_id = Cards.query.filter_by(concept = form.concept.data).first().id
-            photo = Img(img=img.read(),mimetype = mimetype,name = filename, card_id = card_id,date = datetime.now())
             
-            db.session.add(photo)
-            db.session.commit()
             flash('Saved', 'success')
             return render_template("/cards.html", form = form)
         
@@ -96,22 +97,22 @@ def cards():
 @login_required
 def browse():
     user_id = current_user.get_id()
+    try:
+        card_id = getList(db.session.execute(f'SELECT id FROM cards WHERE cards.user_id = {user_id} ORDER BY cards.id').fetchall())[0]
+    except:
+        return "you don't have any cards create some then comeback"
     li = db.session.execute(f'SELECT concept FROM cards WHERE cards.user_id = {user_id} ORDER BY cards.id').fetchall()
     concepts = getList(li)
     ex = db.session.execute(f'SELECT explanation FROM cards WHERE cards.user_id = {user_id} ORDER BY cards.id').fetchall()
     explanations = getList(ex)
+    img_name = getList(db.session.execute(f'SELECT img FROM cards ORDER BY cards.id').fetchall()
+)
+
 
 
     
-    return render_template("/browse-cards.html",concepts = concepts,explanations = explanations)
+    return render_template("/browse-cards.html",concepts = concepts,explanations = explanations,img_name = img_name)
 
-@app.route("/<int:id>")
-@login_required
-def get_img(id):
-    img = Img.query.filter_by(id = id).first()
-    if not img:
-        return 'nooooooo', 400
-    return Response (img.img,mimetype = img.mimetype)
 
 @app.route("/palaces")
 @login_required

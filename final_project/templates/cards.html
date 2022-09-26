@@ -11,8 +11,7 @@
 
             <div class="form-group mb-3">
                 {{ form.photo.label(class="form-control-label") }}
-                {{ form.photo(class="form-control-file" , id = 'formFileMultiple') }}
-                <button onclick="myFunction();" id="display" class="btn btn-outline-dark">Display</button>
+                {{ form.photo(class="form-control-file" , id = 'formFileMultiple',onchange="myFunction();") }}
                 {% if form.photo.errors %}
                     {% for error in form.photo.errors %}
                         <span class="text-danger">
