@@ -103,6 +103,90 @@
 
 }
 
+/*browse-Palace*/
+.card-content
+{
+    display: grid;
+    place-items: center;
+    padding-top:20px;
+}
+.accor
+{
+    max-width:1200px;
+   
+}
+table td
+{
+    border: solid black;
+    padding: 80px;
+}
+table
+{
+    display:grid;
+    place-content: center;
+}
+.accor .contentBx
+{
+    position: relative;
+    margin:10px 20px;
+}
+.accor .contentBx .label
+{
+    position: relative;
+    padding:10px;
+    background: #2694af;
+    color:#fff;
+    cursor: pointer;
+}
+.accor .contentBx .label::before
+{
+    content: '+';
+    position: absolute;
+    top:50%;
+    right:20px;
+    transform: translateY(-50%);
+    font-size: 1.5em;
+}
+.accor .contentBx.active .label::before
+{
+    content: '-';
+
+}
+.accor .contentBx .text
+{
+    position:relative;
+    background: #fff;
+    height: 0;
+    overflow: hidden;
+    transition: 0.5s;
+    overflow-y: auto;
+}
+.accor .contentBx.active .text
+{
+    height:550px;
+    padding: 10px;
+
+}
+/*create palace page*/
+.route
+{
+    display:flex;
+    flex-direction: row;
+    gap:10px;
+    margin-top:30px;
+}
+
+
+.route input
+{
+    height: 50px;
+    width:550px;
+    
+}
+.route button
+{
+    height:50px;
+}
 
 
 /*register form */

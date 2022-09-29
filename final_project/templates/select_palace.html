@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}
+    select_palace
+{% endblock %}
+{% block main %}
+<div class="content">
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group mb-3">
+
+            <div class="palace mb-3" id="palace">
+
+                {{ form.name }}
+                {% if form.name.errors %}
+                    {% for error in form.name.errors %}
+                        <span class="text-danger">
+                            {{error}}
+                        </span>
+                    {% endfor %}
+                {% endif %}
+                <label for="">Select the palace to add cards into</label>
+                    {% for choice in form.name.choices %}
+                    {% endfor %}
+                <button class="btn btn-success" >Save</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+
+
+{% endblock %}

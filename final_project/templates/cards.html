@@ -40,6 +40,20 @@
                 {% endfor %}
             {% endif %}
           </div>
+          <div>
+            <label for="select">Select Check Point</label>
+            {{ form.route }}
+            {% if form.route.errors %}
+            {% for error in form.route.errors %}
+                <span class="text-danger">
+                    {{error}}
+                </span>
+            {% endfor %}
+            {% endif %}
+            {% for route in form.route.choices %}
+                
+            {% endfor %}
+          </div>
 
          
       </fieldset>

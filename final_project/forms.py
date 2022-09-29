@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileAllowed
-from wtforms import StringField,PasswordField,SubmitField,FileField,TextAreaField,MultipleFileField
+from wtforms import StringField,PasswordField,SubmitField,FileField,TextAreaField,SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from final_project.Models import Users
 
@@ -38,6 +38,9 @@ class card_form(FlaskForm):
 
     explanation = TextAreaField('Explanation',validators=[DataRequired()])
 
+    route = SelectField('Select Check Point',validate_choice=True,choices=[])
+
+
     submit = SubmitField('Save')
 
     def validate_username(self,username):
@@ -45,4 +48,5 @@ class card_form(FlaskForm):
         if card:
             raise ValidationError('This card already exists choose another name')
    
-
+class selectPalace_form(FlaskForm):
+    name = SelectField('Select the palace to add cards into',validate_choice=True,choices=[])

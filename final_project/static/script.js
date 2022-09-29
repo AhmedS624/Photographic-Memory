@@ -8,8 +8,6 @@ for (i=0;i<accordiion.length;i++){
 
 
 
-
-
 function myFunction() {
      var file = document.getElementById('formFileMultiple').files[0];
 

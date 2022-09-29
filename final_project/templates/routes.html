@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}
+    Add Route
+{% endblock %}
+{% block main %}
+<div class="content">
+
+    <form action="" method="post">
+        
+    <div class="route mb-3 " >
+        <input type="text" autocomplete="off"  placeholder="Route" name="check_point" autofocus>
+        <button class="btn btn-success" >Add</button>
+    </div>
+    
+    </form>
+    <div class="content mb-3 mt-3">
+        {% for road in roads %}
+        
+        {{road }}
+        <br><br>
+        
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

@@ -6,3 +6,7 @@ def getList(tuple):
     return values
 
 
+def getDict(tup,di):
+    for a,b in tup:
+        di.setdefault(a,[]).append(b)
+    return di

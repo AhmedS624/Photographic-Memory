@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}
+    Browse Palaces
+{% endblock %}
+{% block main %}
+<!-- make a for loop for each palace -->
+{% for key,val in eve.items() %}
+  <div class="card-content">
+    <div class="accor">
+        <div class="contentBx">
+                <div class="label">{{ key }}</div>  <!--palace[i]-->
+                <div class="text">
+                  <Table>
+                    <!-- place a list of routes in the palace[i] here-->
+
+
+
+                    
+
+                    {% for i in range(val|length) %}
+                    <tr>
+                      <td>
+                          <p>{{ val[i] }}</p>
+
+                        </td>
+                        <td>
+                          {% if i < concepts|length %}
+                          <div>{{ concepts[i] }}</div>
+                          <div>
+                            <img src="{{'static/photos/'+img_name[i]}}" alt="" style="width:550px ; height: 500px;">
+                            <br><br>
+                            {{ explanations[i] }}
+                          </div>
+                          {% else %}
+                          <p>Add Card</p>
+                          {% endif %}
+                                        
+                     
+                        </td>
+                      </tr>
+                    {% endfor %}
+                  </Table>
+                </div>
+              </div>
+            </div>
+          </div>
+  {% endfor %}
+
+{% endblock %}
