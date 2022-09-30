@@ -14,6 +14,55 @@ from final_project.functions import getList,getDict
 
 
 
+# functions that needs to be here
+
+def card_route(li):
+    routes=[]
+    for i in range(len(li)):
+        foo = getList(db.session.execute(f'SELECT route FROM routes WHERE id = "{li[i]}" ').fetchall())
+        routes.append(foo[0])
+    return routes
+
+def route_palace(li):
+    palace=[]
+    for i in range(len(li)):
+        palace_ids = getList(db.session.execute(f'SELECT palace_id FROM routes WHERE route = "{li[i]}"').fetchall())
+        for y in range(len(palace_ids)):
+            foo = getList(db.session.execute(f'SELECT name FROM palaces WHERE id = "{palace_ids[y]}" ').fetchall())
+            palace.append(foo[0])
+    return palace
+
+
+
+def save_img(form_img):
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_img.filename)
+    img_fn = random_hex + f_ext
+    img_path = os.path.join(app.root_path,'static/photos',img_fn)
+    form_img.save(img_path)
+    return img_fn
+
+
+def getRoute(li,ri):
+
+    rm_route = []
+    new_list = list(set(ri).difference(li))
+    for i in range(len( new_list )):
+        one_check = getList(db.session.execute(f'SELECT route FROM routes WHERE id = {new_list[i]}').fetchall())
+        rm_route.append(one_check[0])
+    return rm_route
+
+def getCardRoute(li):
+    route=[]
+    for i in range(len(li)):
+        one_check = getList(db.session.execute(f'SELECT route FROM routes WHERE id = {li[i]}').fetchall())
+        route.append(one_check[0])
+    return route
+
+
+
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
@@ -66,36 +115,6 @@ def logout():
     # Redirect user to login form
     return redirect("/login")
 
-# functions that needs to be here
-
-def card_route(li):
-    routes=[]
-    for i in range(len(li)):
-        foo = getList(db.session.execute(f'SELECT route FROM routes WHERE id = "{li[i]}" ').fetchall())
-        routes.append(foo[0])
-    return routes
-
-
-
-def save_img(form_img):
-    random_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_img.filename)
-    img_fn = random_hex + f_ext
-    img_path = os.path.join(app.root_path,'static/photos',img_fn)
-    form_img.save(img_path)
-    return img_fn
-
-
-def getRoute(li,ri):
-
-    rm_route = []
-    new_list = list(set(ri).difference(li))
-    for i in range(len( new_list )):
-        one_check = getList(db.session.execute(f'SELECT route FROM routes WHERE id = {new_list[i]}').fetchall())
-        rm_route.append(one_check[0])
-    return rm_route
-
-
     
 @app.route("/select_palace" ,methods = ('GET','POST'))
 @login_required
@@ -119,35 +138,44 @@ def select_palace():
 @login_required
 def browse_palaces():
     user_id = current_user.get_id()
+    # getting the palace name and the routes assosiated with it
+    
     try:
         palaces = getList(db.session.execute(f'SELECT name FROM palaces ').fetchall())
        
     except:
         return "you don't have any palaces create some then comeback"
     
-  
+    # eve[name of the palace] => all routes in said palace
     tup = (db.session.execute('select name,route from routes join palaces on palace_id = palaces.id').fetchall())
     dic = {}
-
     eve = getDict(tup, dic)
 
     # card section
 
     card_id = getList(db.session.execute(f'SELECT id FROM cards WHERE cards.user_id = {user_id} ORDER BY cards.id').fetchall())[0]
 
-    li = db.session.execute(f'SELECT concept FROM cards WHERE cards.user_id = {user_id} ORDER BY cards.id').fetchall()
-    concepts = getList(li)
-    ex = db.session.execute(f'SELECT explanation FROM cards WHERE cards.user_id = {user_id} ORDER BY cards.id').fetchall()
-    explanations = getList(ex)
+    concepts = getList(db.session.execute(f'SELECT concept FROM cards WHERE cards.user_id = {user_id} ORDER BY cards.id').fetchall())
+
+    explanations = getList(db.session.execute(f'SELECT explanation FROM cards WHERE cards.user_id = {user_id} ORDER BY cards.id').fetchall())
+
     img_name = getList(db.session.execute(f'SELECT img FROM cards ORDER BY cards.id').fetchall())
 
     route_id = getList(db.session.execute('select route_id from cards').fetchall())
 
-    x= 0
+    card_route_name = getCardRoute(route_id)
+
+
+    # for assigning the right card to it's route
+    # B_val[route name] => id of the card so the list doesn't go out of range
+    mix = (db.session.execute('select route,cards.id from routes join cards on route_id = routes.id').fetchall())
+    di = {}
+    B_val = getDict(mix, di)
+
 
 
     return render_template("/browse-palaces.html",palaces = palaces,eve = eve ,
-                            concepts = concepts,explanations = explanations,img_name = img_name,route_id = route_id)
+                            concepts = concepts,explanations = explanations,img_name = img_name,card_route_name=card_route_name,B_val = B_val)
 
 @app.route("/palace",methods = ['GET','POST'])
 @login_required
@@ -229,13 +257,20 @@ def cards():
         if form.validate_on_submit:
             img_file = save_img(form.photo.data)
             ch_route = form.route.data
-
-            route_id = getList(db.session.execute(f'SELECT id FROM routes WHERE route = "{ch_route}"').fetchall())[0]
-
+            try:
+                route_id = getList(db.session.execute(f'SELECT id FROM routes WHERE route = "{ch_route}"').fetchall())[0]
+            except:
+                flash("You don't have any routes selected",'danger')
+                return redirect('/cards')
 
             #add to the form which palace and on that which route to add : done
             #add routes to the cards : done
-            card = Cards(user_id = current_user.get_id(),concept = form.concept.data,explanation = form.explanation.data,img=img_file,route_id = route_id)
+            try:
+                card = Cards(user_id = current_user.get_id(),concept = form.concept.data,explanation = form.explanation.data,img=img_file,route_id = route_id)
+            except:
+                flash("You didn't choose an image",'danger')
+                return redirect('/cards')
+
 
             db.session.add(card)
             db.session.commit()
@@ -258,8 +293,11 @@ def browse():
     img_name = getList(db.session.execute(f'SELECT img FROM cards ORDER BY cards.id').fetchall())
 
     route_id = getList(db.session.execute(f'SELECT route_id FROM cards ').fetchall())
-    routes = card_route(route_id)
+    route_card = card_route(route_id)
+
+
+    palace = route_palace(route_card)
 
     
-    return render_template("/browse-cards.html",concepts = concepts,explanations = explanations,img_name = img_name,routes = routes)
+    return render_template("/browse-cards.html",concepts = concepts,explanations = explanations,img_name = img_name,route_card = route_card,palace = palace)
 

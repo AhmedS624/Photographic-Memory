@@ -8,7 +8,7 @@
   <div class="card-content">
     <div class="accor">
         <div class="contentBx">
-                <div class="label">{{ key }}</div>  <!--palace[i]-->
+                <div style="font-size: 1.5em; font-family:'Times New Roman', Times, serif;" class="label">{{ key }}</div>  <!--palace[i]-->
                 <div class="text">
                   <Table>
                     <!-- place a list of routes in the palace[i] here-->
@@ -20,19 +20,28 @@
                     {% for i in range(val|length) %}
                     <tr>
                       <td>
-                          <p>{{ val[i] }}</p>
+                          <p style="font-size: 1.5em;">{{ val[i] }}</p>
 
                         </td>
                         <td>
-                          {% if i < concepts|length %}
-                          <div>{{ concepts[i] }}</div>
+                          {% if val[i] in card_route_name %}
+
+                          
+                          <div style="display: flex ; flex-direction:row;">
+                            <p style="font-size: 1.5em; font-weight:bold;">
+                            <label>Concept : </label>
+                              {{ concepts[B_val[val[i]][0]-1] }}
+                            </p>
+                          </div>
                           <div>
-                            <img src="{{'static/photos/'+img_name[i]}}" alt="" style="width:550px ; height: 500px;">
+                            <img src="{{'static/photos/'+img_name[B_val[val[i]][0]-1] }}" alt="" style="width:550px; height: 500px;">
                             <br><br>
-                            {{ explanations[i] }}
+                            <p>
+                             <label style ="font-weight:bold; font-size: 1.3em;"> Explanation :  </label> {{ explanations[B_val[val[i]][0]-1] }}
+                            </p>
                           </div>
                           {% else %}
-                          <p>Add Card</p>
+                          <p style="font-size: 1.5em;">Add Card</p>
                           {% endif %}
                                         
                      

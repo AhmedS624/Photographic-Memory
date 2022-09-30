@@ -112,12 +112,12 @@
 }
 .accor
 {
-    max-width:1200px;
-   
+    width:1100px;
+    
 }
 table td
 {
-    border: solid black;
+    border: solid black 5px;
     padding: 80px;
 }
 table
@@ -134,7 +134,7 @@ table
 {
     position: relative;
     padding:10px;
-    background: #2694af;
+    background: #266daf;
     color:#fff;
     cursor: pointer;
 }
@@ -164,7 +164,6 @@ table
 .accor .contentBx.active .text
 {
     height:550px;
-    padding: 10px;
 
 }
 /*create palace page*/
@@ -188,6 +187,25 @@ table
     height:50px;
 }
 
+.palace
+{
+    display:flex;
+    flex-direction: row;
+    gap:10px;
+    margin-top:30px;
+}
+
+
+.palace input
+{
+    height: 50px;
+    width:550px;
+    
+}
+.palace button
+{
+    height:50px;
+}
 
 /*register form */
 .form-group ,.border-top 

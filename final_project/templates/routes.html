@@ -14,12 +14,19 @@
     
     </form>
     <div class="content mb-3 mt-3">
-        {% for road in roads %}
-        
-        {{road }}
-        <br><br>
-        
-        {% endfor %}
+        <h3>Check Points</h3>
+        <ul>
+
+            {% for road in roads %}
+            <li>
+
+                <h3>
+                    {{road }}
+                </h3>
+            </li>
+            
+            {% endfor %}
+        </ul>
     </div>
 
 </div>
