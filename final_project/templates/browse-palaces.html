@@ -8,11 +8,14 @@
   <div class="card-content">
     <div class="accor">
         <div class="contentBx">
-                <div style="font-size: 1.5em; font-family:'Times New Roman', Times, serif;" class="label">{{ key }}</div>  <!--palace[i]-->
+                <div style="font-size: 1.5em;" class="label">{{ key }}</div>  <!--palace[i]-->
                 <div class="text">
                   <Table>
                     <!-- place a list of routes in the palace[i] here-->
-
+                    <tr>
+                      <th>Check Point</th>
+                      <th>Card</th>
+                    </tr>
 
 
                     
@@ -36,7 +39,7 @@
                           <div>
                             <img src="{{'static/photos/'+img_name[B_val[val[i]][0]-1] }}" alt="" style="width:550px; height: 500px;">
                             <br><br>
-                            <p>
+                            <p style="font-size: 1.4em;">
                              <label style ="font-weight:bold; font-size: 1.3em;"> Explanation :  </label> {{ explanations[B_val[val[i]][0]-1] }}
                             </p>
                           </div>

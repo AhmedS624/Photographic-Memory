@@ -10,7 +10,11 @@
 
             <div class="palace mb-3" id="palace">
 
-                {{ form.name }}
+                <h3>
+                    Select the palace to add cards into
+                </h3>
+                
+                {{ form.name (class="form-select") }}
                 {% if form.name.errors %}
                     {% for error in form.name.errors %}
                         <span class="text-danger">
@@ -18,7 +22,6 @@
                         </span>
                     {% endfor %}
                 {% endif %}
-                <label for="">Select the palace to add cards into</label>
                 <br>
                     {% for choice in form.name.choices %}
                     {% endfor %}
