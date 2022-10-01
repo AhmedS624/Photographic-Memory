@@ -8,14 +8,14 @@
     <form action="" method="post">
         
     <div class="route mb-3 " >
-        <input type="text" autocomplete="off"  placeholder="Route" name="check_point" autofocus>
+        <input type="text" autocomplete="off"  placeholder="Check Point" name="check_point" autofocus>
         <button class="btn btn-success" >Add</button>
     </div>
     
     </form>
     <div class="content mb-3 mt-3">
-        <h3>Check Points</h3>
-        <ul>
+        <h3 style="font-weight: bold;">Check Points</h3>
+        <ul style="list-style:none ;">
 
             {% for road in roads %}
             <li>
