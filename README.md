@@ -23,7 +23,7 @@ Then you make the cards(info) now this is the fun parn as you let your imaginati
 
 Then assign it to a checkpoint
 
-let's take the word Quintessential for example when I see this word I see the "Queen" of England(RIP) with a red full bag of "essential" stuff
+let's take the word Quintessential for example when I see this word I see the "Queen" of England (RIP) with a red full bag of "essential" stuff
 
 Now to put that mind image in a checkpoint
 
