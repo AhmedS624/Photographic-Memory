@@ -1,4 +1,6 @@
 # Photographic Memory
+URL:
+
 a program that lets you memorize difficult concepts with pictures
 Do you know what is a mind palace or the method of loci or memory journey
 it is a strategy for memory enhancment,which uses vusualization of familiar spatial environments in order to engance the recall of information
@@ -35,3 +37,8 @@ checkpoint 1: door card Quintessential = Queen + essential Explanation: I pass b
 Now try forgetting that
 
 This method is like a cheat to studing as you are having fun creating and also memorizing even better than the traditional way
+
+Now that I expalined the idea behind it let's get to the nitty gritty stuff
+
+
+
