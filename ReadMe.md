@@ -1,4 +1,4 @@
-# Final-Project2.0
+# Photographic Memory
 a program that lets you memorize difficult concepts with pictures
 Do you know what is a mind palace or the method of loci or memory journey
 it is a strategy for memory enhancment,which uses vusualization of familiar spatial environments in order to engance the recall of information
@@ -19,17 +19,19 @@ chekpoint 2: sofa
 checkpint 3: TV
 ...etc
 
-then you make the cards(info) now this is the fun parn as you let your imagination run wild to turn your information into into a picture or a short story
+Then you make the cards(info) now this is the fun parn as you let your imagination run wild to turn your information into into a picture or a short story
 
-then assign it to a checkpoint
+Then assign it to a checkpoint
 
 let's take the word Quintessential for example when I see this word I see the "Queen" of England (RIP) with a red full bag of "essential" stuff
 
-now to put that mind image in a checkpoint
+Now to put that mind image in a checkpoint
 
-Palace : home
+Palace : home.
 checkpoint 1: door card Quintessential = Queen + essential Explanation: I pass by the Queen standing at the door with her red bag full of essentials
               and she calls me a typical human
               (the word quintessential means typical)
               
-Now try to forget that image of your head or the meaning of the word
+Now try forgetting that
+
+This method is like a cheat to studing as you are having fun creating and also memorizing even better than the traditional way
