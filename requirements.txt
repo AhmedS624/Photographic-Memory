@@ -40,17 +40,8 @@ PyNaCl==1.5.0
 pyparsing==2.4.7
 requests==2.25.1
 requests-file
-SecretStorage==3.3.1
-setproctitle
-
-soupsieve==2.3.1
 SQLAlchemy
 sqlclient==21.4.24
-systemd-python==234
-tldextract==3.1.2
-Unidecode
-urllib3
-wadllib
 Werkzeug==2.2.2
 WTForms==3.0.1
 
