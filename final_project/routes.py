@@ -4,13 +4,13 @@ import os
 
 
 from flask import render_template,request, session, flash, redirect,url_for,Response
-from app import app,db,bcrypt
-from forms import register_form,login_form,card_form,selectPalace_form
-from Models import Users, Cards,Routes,Palaces
+from final_project import app,db,bcrypt
+from final_project.forms import register_form,login_form,card_form,selectPalace_form
+from final_project.Models import Users, Cards,Routes,Palaces
 from flask_login import login_user, current_user,logout_user,login_required
 from werkzeug.utils import secure_filename
 from sqlalchemy.orm import load_only
-from functions import getList,getDict
+from final_project.functions import getList,getDict
 
 
 
