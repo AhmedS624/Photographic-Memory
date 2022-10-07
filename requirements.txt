@@ -14,7 +14,6 @@ filelock==3.6.0
 Flask==2.2.2
 Flask-Bcrypt
 Flask-SQLAlchemy==2.5.1
-Flask-Upload
 Flask-WTF
 greenlet
 grpcio
